@@ -1,16 +1,21 @@
 
 var numberOfDrumButtons = document.querySelectorAll("button").length;
 for(var i = 0; i < numberOfDrumButtons; i++){
+  //waits for clicks
   document.querySelectorAll(".drum")[i].addEventListener("click", function (){
     makeSound(this.innerHTML);
+    buttonAnimation(this.innerHTML);
   });
 }
 
-
+//waits for a key press
 document.addEventListener("keydown",function (event){
   makeSound(event.key);
+  buttonAnimation(event.key);
 });
 
+
+//this function creates the sound, based on what key was pressed or clicked
 function makeSound(key){
   switch (key) {
     case "w":
@@ -46,5 +51,15 @@ function makeSound(key){
     default:  console.log(this.innerHTML);
   }
 }
-// var audio = new Audio('./sounds/tom-1.mp3');
-// audio.play();
+//adding animation to the drums after a click/keystroke
+function buttonAnimation(key){
+  activeButton = document.querySelector("." + key);
+  activeButton.classList.toggle("pressed");
+
+  //this basically creates a delay, so the light turns on and off and creates an animation
+  setTimeout(function () {
+    activeButton.classList.toggle("pressed");
+  }, 100);
+
+}
+
